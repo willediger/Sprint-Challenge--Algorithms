@@ -99,41 +99,37 @@ class SortingRobot:
         else:
             return
     
+    def evaluate(self):
+        self.goto_start()
+        if self.has_blank():
                     self.swap_item()
                 self.move_right()
-                if self.compare_item():
-                    if self.compare_item() > 0:
-                        self.sort()
-                    elif self.compare_item() < 0:
+        if self.compare_item() < 0:
+            #move blank over
+            self.move_left()
                         self.swap_item()
-                        self.sort()
-                else:
+            self.move_right()
                     self.swap_item()
-                    self.sort()
             else:
-                self.set_light_on()
-                if self.compare_item():
-                    if self.compare_item() > 0:
+            self.move_left()
                         self.swap_item()
-                        self.sort()
-                    elif self.compare_item() < 0:
-                        self.sort()
-                else:
-                    self.swap_item()
-                    self.sort()
-        else:
-            if self.can_move_left():
-                if not self.compare_item():
-                    self.swap_item()
+            return False
+        while self.can_move_right():
+            self.move_right()
+            if self.compare_item() < 0:
                 self.move_left()
-                if self.compare_item():
-                    if self.compare_item() < 0:
-                        self.sort()
-                    elif self.compare_item() > 0:
-                        self.swap_item()
-                        self.sort()
-                else:
                     self.swap_item()
+                self.move_right()
+                    self.swap_item()
+            else:
+                self.move_left()
+                        self.swap_item()
+                return False
+                    self.swap_item()
+        self.goto_start()
+        return True
+            
+
     def has_blank(self):
         if not self.compare_item():
             if self.can_move_right():
