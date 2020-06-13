@@ -102,30 +102,30 @@ class SortingRobot:
     def evaluate(self):
         self.goto_start()
         if self.has_blank():
-                    self.swap_item()
-                self.move_right()
+            self.swap_item()
+            self.move_right()
         if self.compare_item() < 0:
             #move blank over
             self.move_left()
-                        self.swap_item()
+            self.swap_item()
             self.move_right()
-                    self.swap_item()
-            else:
+            self.swap_item()
+        else:
             self.move_left()
-                        self.swap_item()
+            self.swap_item()
             return False
         while self.can_move_right():
             self.move_right()
             if self.compare_item() < 0:
                 self.move_left()
-                    self.swap_item()
+                self.swap_item()
                 self.move_right()
-                    self.swap_item()
+                self.swap_item()
             else:
                 self.move_left()
-                        self.swap_item()
+                self.swap_item()
                 return False
-                    self.swap_item()
+        self.swap_item()
         self.goto_start()
         return True
             
@@ -137,7 +137,7 @@ class SortingRobot:
                 if not self.compare_item():
                     self.move_left()
                     return True
-            else:
+                else:
                     self.move_left()
             elif self.can_move_left():
                 self.move_left()
@@ -148,12 +148,45 @@ class SortingRobot:
                     self.move_right()
             
 
+    def sort(self):
+        """
+        Sort the robot's list.
+        """
+
+        if self.has_blank():
+            self.swap_item()
+            if self.can_move_right():
+                self.move_right()
+                if self.compare_item() < 0:
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.sort()
+                else:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.sort()
+            else:
+                self.swap_item()
+                self.goto_start()
+        if self.evaluate():
+            return
+        else:
+            self.sort()
+            
+
+        
+            
+
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
     l = [5,4,3,2,1]
+    # l = [1,2,3,4,5]
     robot = SortingRobot(l)
 
     robot.sort()
