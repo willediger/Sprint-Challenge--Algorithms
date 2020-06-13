@@ -134,18 +134,22 @@ class SortingRobot:
                         self.sort()
                 else:
                     self.swap_item()
-                    self.sort()
+    def has_blank(self):
+        if not self.compare_item():
+            if self.can_move_right():
+                self.move_right()
+                if not self.compare_item():
+                    self.move_left()
+                    return True
             else:
-                self.set_light_off()
-                if self.compare_item():
-                    if self.compare_item() < 0:
-                        self.sort()
-                    elif self.compare_item() > 0:
-                        self.swap_item()
-                        self.sort()
+                    self.move_left()
+            elif self.can_move_left():
+                self.move_left()
+                if not self.compare_item():
+                    self.move_right()
+                    return True
                 else:
-                    self.swap_item()
-                    self.sort()
+                    self.move_right()
             
 
 
