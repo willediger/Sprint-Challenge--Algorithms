@@ -155,32 +155,35 @@ class SortingRobot:
         # insertion sort, finding the smallest element and placing it to the left of any element less
         # than it
         while not self.light_is_on() or self.can_move_right():
-        if self.has_blank():
-            self.swap_item()
-            while self.can_move_right():
-                self.move_right()
-                    if self.compare_item():
-                if self.compare_item() > 0:
-                    self.swap_item()
-            while self.can_move_left():
-                if self.compare_item():
-                    if self.compare_item() < 0:
-                        self.move_left()
-                    else:
-                        self.move_right()
-                        self.swap_item()
+            if self.has_blank():
+                self.swap_item()
+                while self.can_move_right():
+                    self.move_right()
+                    if self.compare_item() is not None:
+                        if self.compare_item() > 0:
+                            self.swap_item()
+                
+                while self.can_move_left():
+                    if self.compare_item() is not None:
+                        if self.compare_item() <= 0:
+                            self.move_left()
+                        else:
+                            self.move_right()
+                            self.swap_item()
                             self.move_right()
                             break
-                else:
-                    self.swap_item()
-                    self.move_right()
+                    else:
+                        self.swap_item()
+                        self.move_right()
                         if not self.can_move_right():
                             self.set_light_on()
                         break
-                if not self.compare_item() and not self.light_is_on() and not self.has_blank():
-        self.swap_item()
-        self.move_right()
-        
+                if self.has_blank():
+                    pass
+                elif self.compare_item() is None and not self.light_is_on():
+                    self.swap_item()
+                    self.move_right()
+
             
 
 
