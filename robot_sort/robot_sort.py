@@ -152,30 +152,33 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-
+        # insertion sort, finding the smallest element and placing it to the left of any element less
+        # than it
         if self.has_blank():
             self.swap_item()
-            if self.can_move_right():
+            while self.can_move_right():
                 self.move_right()
-                if self.compare_item() < 0:
-                    self.move_left()
+                if self.compare_item() > 0:
                     self.swap_item()
-                    self.move_right()
-                    self.sort()
+            while self.can_move_left():
+                if self.compare_item():
+                    if self.compare_item() < 0:
+                        self.move_left()
+                    else:
+                        self.move_right()
+                        self.swap_item()
+                        self.sort()
                 else:
                     self.swap_item()
-                    self.move_left()
-                    self.swap_item()
                     self.move_right()
-                    self.sort()
-            else:
-                self.swap_item()
-                self.goto_start()
-        if self.evaluate():
-            return
-        else:
-            self.sort()
-            
+                    if self.can_move_right():
+                        self.sort()
+                    else:
+                        return
+        self.swap_item()
+        self.move_right()
+        self.sort()
+
 
         
             
