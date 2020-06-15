@@ -93,17 +93,17 @@ class SortingRobot:
         return self._light == "ON"
     
     def has_blank(self):
-        if not self.compare_item():
+        if self.compare_item() is None:
             if self.can_move_right():
                 self.move_right()
-                if not self.compare_item():
+                if self.compare_item() is None:
                     self.move_left()
                     return True
                 else:
                     self.move_left()
             elif self.can_move_left():
                 self.move_left()
-                if not self.compare_item():
+                if self.compare_item() is None:
                     self.move_right()
                     return True
                 else:
