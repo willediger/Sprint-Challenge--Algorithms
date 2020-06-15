@@ -91,45 +91,7 @@ class SortingRobot:
         Returns True if the robot's light is on and False otherwise.
         """
         return self._light == "ON"
-
-    def goto_start(self):
-        if self.can_move_left():
-            self.move_left()
-            self.goto_start()
-        else:
-            return
     
-    def evaluate(self):
-        self.goto_start()
-        if self.has_blank():
-            self.swap_item()
-            self.move_right()
-        if self.compare_item() < 0:
-            #move blank over
-            self.move_left()
-            self.swap_item()
-            self.move_right()
-            self.swap_item()
-        else:
-            self.move_left()
-            self.swap_item()
-            return False
-        while self.can_move_right():
-            self.move_right()
-            if self.compare_item() < 0:
-                self.move_left()
-                self.swap_item()
-                self.move_right()
-                self.swap_item()
-            else:
-                self.move_left()
-                self.swap_item()
-                return False
-        self.swap_item()
-        self.goto_start()
-        return True
-            
-
     def has_blank(self):
         if not self.compare_item():
             if self.can_move_right():
